@@ -1,0 +1,56 @@
+# en lösning på a)
+import numpy as np
+import random
+import matplotlib.pyplot as plt
+def random_graph(n, p):
+    # Skapa en nxn-matris med endast nollor.
+    adjacency_matrix = np.zeros((n, n))
+    
+    # För varje par av noder (i, j) i grafen, med i < j:
+    for i in range(n):
+        for j in range(i + 1, n):
+            
+            prob = np.random.random()
+            adjacency_matrix[i][j] = prob
+            adjacency_matrix[j][i] = prob
+            
+            # Om sannolikheten är mindre än p, lägg till en kant i grafen.
+        
+    adjacency_matrix = adjacency_matrix > p
+    adjacency_matrix = adjacency_matrix * 1
+    # Returnera grannmatrisen för den slumpade grafen.
+    return adjacency_matrix
+
+def is_connected(A):
+    if (np.min(A)==0):
+        return False
+    else :
+        return True
+
+def matmulting(A,n):
+    C=A
+    B=A
+    for i in range(n):
+        B = np.matmul(B,A)
+        C=C+B
+    return C
+
+listofarrays = []
+randNlist=[]
+for i in range(5):
+    randN=random.randint(2,10)
+    ary = random_graph(randN, 0.5)
+    array = matmulting(ary,randN)
+    arrayconnected = is_connected(array)
+    randNlist.append(randN)
+    if arrayconnected:
+        listofarrays.append(1)
+    else:
+        listofarrays.append(0)
+print(randNlist)
+print(listofarrays)
+plt.plot(listofarrays,randNlist)
+#print(np.max(array))
+#print(np.min(array))
+#print(array)
+print(arrayconnected)
